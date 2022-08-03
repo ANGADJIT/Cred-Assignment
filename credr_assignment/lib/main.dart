@@ -1,6 +1,7 @@
 import 'package:credr_assignment/src/presentation/pages/signin_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Project Details
 /// Flutter Version : [3.0.5]
@@ -20,10 +21,11 @@ class CredRAssignment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'CredR Assignment',
       debugShowCheckedModeBanner: false,
-      home: SignIn(),
+      theme: ThemeData(fontFamily: GoogleFonts.notoSans().fontFamily!),
+      home: const SignIn(),
     );
   }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "973216582113",
+    "project_id": "credr-assignment",
+    "storage_bucket": "credr-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973216582113:android:28c49e9e7cd3955e9daaa0",
+        "android_client_info": {
+          "package_name": "com.angadjitsingh.credr.credr_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973216582113-ehc6q7et82ebf965hb1s7ruot3fockse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNikuXDRshZNXcbvC94IWsENUJsghhw3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973216582113-ehc6q7et82ebf965hb1s7ruot3fockse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

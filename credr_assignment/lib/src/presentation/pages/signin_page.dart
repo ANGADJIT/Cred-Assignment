@@ -1,5 +1,8 @@
-import 'package:credr_assignment/src/core/reponsive_model.dart';
+import 'package:credr_assignment/src/core/responsive_model.dart';
+import 'package:credr_assignment/src/presentation/widgets/another_auth_widget.dart';
+import 'package:credr_assignment/src/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class SignIn extends StatelessWidget {
@@ -78,19 +81,157 @@ class SignIn extends StatelessWidget {
                         top: ResponsiveModel.getHeight(context, .07),
                         left: ResponsiveModel.getWidth(context, .1)),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: ResponsiveModel.getHeight(context, .17),
+                          height: ResponsiveModel.getHeight(context, .167),
                           width: ResponsiveModel.getWidth(context, .75),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                                 ResponsiveModel.getWidth(context, .03)),
                             color: HexColor('#FFFFFF').withOpacity(.7),
                           ),
-                          child: Column(),
+                          child: Column(
+                            children: [
+                              TextField(
+                                cursorColor: HexColor('#000000'),
+                                decoration: InputDecoration(
+                                    hintText: 'User or Email',
+                                    hintStyle: TextStyle(
+                                        color: HexColor('#b0b1b0'),
+                                        fontSize: ResponsiveModel.getWidth(
+                                            context, .035)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: HexColor('#e3e3e7'))),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: ResponsiveModel.getWidth(
+                                            context, .02),
+                                        vertical: ResponsiveModel.getHeight(
+                                            context, .027)),
+                                    border: UnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            ResponsiveModel.getWidth(
+                                                context, .02)))),
+                              ),
+                              TextField(
+                                cursorColor: HexColor('#000000'),
+                                decoration: InputDecoration(
+                                    hintText: 'Password',
+                                    hintStyle: TextStyle(
+                                        color: HexColor('#b0b1b0'),
+                                        fontSize: ResponsiveModel.getWidth(
+                                            context, .035)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: HexColor('#e3e3e7'))),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: ResponsiveModel.getWidth(
+                                            context, .02),
+                                        vertical: ResponsiveModel.getHeight(
+                                            context, .027)),
+                                    border: UnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            ResponsiveModel.getWidth(
+                                                context, .02)))),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // button
+                        SizedBox(
+                          height: ResponsiveModel.getHeight(context, .04),
+                        ),
+                        ButtonWidget(
+                          callback: () {},
+                          buttonText: 'Sign In',
+                        ),
+
+                        // row for forgot password button
+                        Row(
+                          children: [
+                            const Spacer(),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: ResponsiveModel.getHeight(context, .01),
+                                  right:
+                                      ResponsiveModel.getWidth(context, .03)),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: RichText(
+                                      text: TextSpan(
+                                          text: 'Forgot Password',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor('#000000'),
+                                              fontSize:
+                                                  ResponsiveModel.getWidth(
+                                                      context, .045),
+                                              decorationThickness: 3.0,
+                                              decorationStyle:
+                                                  TextDecorationStyle.solid,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              decorationColor:
+                                                  HexColor('#7c7fce'))))),
+                            )
+                          ],
                         ),
                       ],
                     ),
+                  ),
+
+                  /// bottom line and altrnative sign in options
+                  Padding(
+                      padding: EdgeInsets.only(
+                          left: 8.0,
+                          top: ResponsiveModel.getHeight(context, .16)),
+                      child: Text(
+                        'Social login can save your valuable time',
+                        style: TextStyle(color: HexColor('#000000')),
+                      )),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: ResponsiveModel.getHeight(context, .015)),
+                    child: Row(
+                      children: [
+                        Container(
+                          color: HexColor('#7275d1'),
+                          height: ResponsiveModel.getHeight(context, .005),
+                          width: ResponsiveModel.getHeight(context, .16),
+                        ),
+                        const Spacer(),
+                        FaIcon(
+                          FontAwesomeIcons.handPointDown,
+                          color: HexColor('#898fef'),
+                        ),
+                        const Spacer(),
+                        Container(
+                          color: HexColor('#7275d1'),
+                          height: ResponsiveModel.getHeight(context, .005),
+                          width: ResponsiveModel.getHeight(context, .16),
+                        ),
+                        const Spacer()
+                      ],
+                    ),
+                  ),
+
+                  // another options for sign in
+                  Row(
+                    children: [
+                      AnotherAuthWidget(
+                        backgroundColor: HexColor('#f9f8f8'),
+                        callback: () {},
+                        buttonText: 'Google',
+                      ),
+                      AnotherAuthWidget(
+                        backgroundColor: HexColor('#f9f8f8'),
+                        callback: () {},
+                        buttonText: 'Google',
+                      ),
+                    ],
                   )
                 ],
               ),

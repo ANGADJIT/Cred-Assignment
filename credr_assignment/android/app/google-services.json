@@ -9,10 +9,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:973216582113:android:28c49e9e7cd3955e9daaa0",
         "android_client_info": {
-          "package_name": "com.angadjitsingh.credr.credr_assignment"
+          "package_name": "com.angadjitsingh.credr"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "973216582113-uj7kuj5r39lqidv6aqvts4q39iolb7l2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angadjitsingh.credr",
+            "certificate_hash": "879c1c7a4ce60fbc60338632148bc0a8898c2aa5"
+          }
+        },
         {
           "client_id": "973216582113-ehc6q7et82ebf965hb1s7ruot3fockse.apps.googleusercontent.com",
           "client_type": 3

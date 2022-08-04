@@ -8,11 +8,16 @@ class AnotherAuthWidget extends StatelessWidget {
       {Key? key,
       required this.buttonText,
       required this.callback,
-      required this.backgroundColor})
+      required this.backgroundColor,
+      required this.textColor,
+      required this.asset})
       : super(key: key);
+
   final String buttonText;
   final VoidCallback callback;
   final Color backgroundColor;
+  final Color textColor;
+  final String asset;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +25,10 @@ class AnotherAuthWidget extends StatelessWidget {
         onPressed: callback,
         child: Container(
           height: ResponsiveModel.getHeight(context, .04),
-          width: ResponsiveModel.getWidth(context, .4),
+          width: ResponsiveModel.getHeight(context, .16),
           decoration: BoxDecoration(
               color: backgroundColor,
-              border: Border.all(width: 2.0, color: HexColor('#ced0f0')),
+              border: Border.all(width: 3.0, color: HexColor('#ced0f0')),
               borderRadius: BorderRadius.circular(
                   ResponsiveModel.getWidth(context, .03))),
           child: Row(
@@ -31,14 +36,14 @@ class AnotherAuthWidget extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Image.asset('assets/icons/google.png'),
+                child: Image.asset(asset),
               ),
               const Spacer(
                 flex: 4,
               ),
               Text(
                 buttonText,
-                style: const TextStyle(fontWeight: FontWeight.w700),
+                style: TextStyle(fontWeight: FontWeight.w700, color: textColor),
               ),
               const Spacer(
                 flex: 4,

@@ -2,21 +2,20 @@ import 'package:credr_assignment/src/core/functions.dart';
 import 'package:credr_assignment/src/core/responsive_model.dart';
 import 'package:credr_assignment/src/logic/auth/auth.dart';
 import 'package:credr_assignment/src/logic/auth/auth_excetion.dart';
-import 'package:credr_assignment/src/presentation/pages/signup_page.dart';
 import 'package:credr_assignment/src/presentation/widgets/another_auth_widget.dart';
 import 'package:credr_assignment/src/presentation/widgets/button_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
 
-  // editing controllers
+  // text editing controllers
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
 
   final Auth _auth = Auth();
 
@@ -71,7 +70,7 @@ class SignIn extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sign In',
+                      'Sign Up',
                       style: TextStyle(
                           color: HexColor('#FFFFFF'),
                           fontSize: ResponsiveModel.getWidth(context, .1),
@@ -81,7 +80,7 @@ class SignIn extends StatelessWidget {
                       padding: EdgeInsets.only(
                           top: ResponsiveModel.getHeight(context, .01)),
                       child: Text(
-                        'Sign in with username or email',
+                        'Sign up with username or email',
                         style: TextStyle(
                           color: HexColor('#FFFFFF'),
                         ),
@@ -97,7 +96,7 @@ class SignIn extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: ResponsiveModel.getHeight(context, .167),
+                            height: ResponsiveModel.getHeight(context, 0.2523),
                             width: ResponsiveModel.getWidth(context, .75),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
@@ -109,7 +108,6 @@ class SignIn extends StatelessWidget {
                                 TextField(
                                   controller: _email,
                                   cursorColor: HexColor('#000000'),
-                                  keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
                                       hintText: 'User or Email',
                                       hintStyle: TextStyle(
@@ -130,12 +128,34 @@ class SignIn extends StatelessWidget {
                                                   context, .02)))),
                                 ),
                                 TextField(
-                                  controller: _password,
-                                  keyboardType: TextInputType.text,
                                   obscureText: true,
                                   cursorColor: HexColor('#000000'),
+                                  controller: _password,
                                   decoration: InputDecoration(
                                       hintText: 'Password',
+                                      hintStyle: TextStyle(
+                                          color: HexColor('#b0b1b0'),
+                                          fontSize: ResponsiveModel.getWidth(
+                                              context, .035)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: HexColor('#e3e3e7'))),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: ResponsiveModel.getWidth(
+                                              context, .02),
+                                          vertical: ResponsiveModel.getHeight(
+                                              context, .027)),
+                                      border: UnderlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              ResponsiveModel.getWidth(
+                                                  context, .02)))),
+                                ),
+                                TextField(
+                                  obscureText: true,
+                                  controller: _confirmPassword,
+                                  cursorColor: HexColor('#000000'),
+                                  decoration: InputDecoration(
+                                      hintText: 'Confirm Password',
                                       hintStyle: TextStyle(
                                           color: HexColor('#b0b1b0'),
                                           fontSize: ResponsiveModel.getWidth(
@@ -162,13 +182,12 @@ class SignIn extends StatelessWidget {
                             height: ResponsiveModel.getHeight(context, .04),
                           ),
                           ButtonWidget(
-                            // Firebase automactically validates email not need to check manually
                             callback: () async {
-                              // show loading
-                              Functions.showLoading('Signing in..');
+                              Functions.showLoading('Creating account..');
 
+                              // sign up
                               try {
-                                await _auth.signIn(
+                                await _auth.signUp(
                                     email: _email.text.trim(),
                                     password: _password.text.trim());
                               } on AuthException catch (e) {
@@ -176,13 +195,12 @@ class SignIn extends StatelessWidget {
                                     context, e.toString());
                               }
 
-                              // dismiss the loader
                               EasyLoading.dismiss();
                             },
-                            buttonText: 'Sign In',
+                            buttonText: 'Sign Up',
                           ),
 
-                          // row for create new account
+                          // row for forgot password button
                           Row(
                             children: [
                               const Spacer(),
@@ -193,15 +211,10 @@ class SignIn extends StatelessWidget {
                                     right:
                                         ResponsiveModel.getWidth(context, .03)),
                                 child: TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SignUp()));
-                                    },
+                                    onPressed: () {},
                                     child: RichText(
                                         text: TextSpan(
-                                            text: 'Create Account',
+                                            text: 'Forgot Password',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: HexColor('#000000'),
@@ -266,20 +279,7 @@ class SignIn extends StatelessWidget {
                           backgroundColor: HexColor('#f9f8f8'),
                           textColor: HexColor('#000000'),
                           asset: 'assets/icons/google.png',
-                          callback: () async {
-                            // show loading
-                            Functions.showLoading('');
-
-                            try {
-                              await _auth.googleSignIn();
-                            } catch (e) {
-                              Functions.showErrorSnackbar(
-                                  context, e.toString());
-                            }
-
-                            // dismiss loader
-                            EasyLoading.dismiss();
-                          },
+                          callback: () {},
                           buttonText: 'Google',
                         ),
                         AnotherAuthWidget(
@@ -290,6 +290,11 @@ class SignIn extends StatelessWidget {
                           buttonText: 'Facebook',
                         ),
                       ],
+                    ),
+
+                    // extra space
+                    SizedBox(
+                      height: ResponsiveModel.getHeight(context, .02),
                     )
                   ],
                 ),

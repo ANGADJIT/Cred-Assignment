@@ -1,3 +1,6 @@
+import 'package:credr_assignment/src/auth_decider.dart';
+import 'package:credr_assignment/src/presentation/pages/forgot_password.dart';
+import 'package:credr_assignment/src/presentation/pages/home.dart';
 import 'package:credr_assignment/src/presentation/pages/signin_page.dart';
 import 'package:credr_assignment/src/presentation/pages/signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +31,7 @@ class CredRAssignment extends StatelessWidget {
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: GoogleFonts.notoSans().fontFamily!),
-      home: SignIn(),
+      home: const AuthDecider(),
     );
   }
 }

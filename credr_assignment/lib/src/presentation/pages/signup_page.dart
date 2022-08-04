@@ -2,6 +2,8 @@ import 'package:credr_assignment/src/core/functions.dart';
 import 'package:credr_assignment/src/core/responsive_model.dart';
 import 'package:credr_assignment/src/logic/auth/auth.dart';
 import 'package:credr_assignment/src/logic/auth/auth_excetion.dart';
+import 'package:credr_assignment/src/presentation/pages/forgot_password.dart';
+import 'package:credr_assignment/src/presentation/pages/home.dart';
 import 'package:credr_assignment/src/presentation/widgets/another_auth_widget.dart';
 import 'package:credr_assignment/src/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -183,19 +185,33 @@ class SignUp extends StatelessWidget {
                           ),
                           ButtonWidget(
                             callback: () async {
-                              Functions.showLoading('Creating account..');
+                              if (Functions.validSignUp(
+                                  context: context,
+                                  email: _email.text.trim(),
+                                  password: _password.text.trim(),
+                                  confirmPassword:
+                                      _confirmPassword.text.trim())) {
+                                Functions.showLoading('Creating account..');
 
-                              // sign up
-                              try {
-                                await _auth.signUp(
-                                    email: _email.text.trim(),
-                                    password: _password.text.trim());
-                              } on AuthException catch (e) {
-                                Functions.showErrorSnackbar(
-                                    context, e.toString());
+                                // sign up
+                                try {
+                                  await _auth
+                                      .signUp(
+                                          email: _email.text.trim(),
+                                          password: _password.text.trim())
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()));
+                                  });
+                                } on AuthException catch (e) {
+                                  Functions.showErrorSnackbar(
+                                      context, e.toString());
+                                }
+
+                                EasyLoading.dismiss();
                               }
-
-                              EasyLoading.dismiss();
                             },
                             buttonText: 'Sign Up',
                           ),
@@ -211,7 +227,13 @@ class SignUp extends StatelessWidget {
                                     right:
                                         ResponsiveModel.getWidth(context, .03)),
                                 child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ForgotPassword()));
+                                    },
                                     child: RichText(
                                         text: TextSpan(
                                             text: 'Forgot Password',
@@ -279,7 +301,25 @@ class SignUp extends StatelessWidget {
                           backgroundColor: HexColor('#f9f8f8'),
                           textColor: HexColor('#000000'),
                           asset: 'assets/icons/google.png',
-                          callback: () {},
+                          callback: () async {
+                            // show loading
+                            Functions.showLoading('');
+
+                            try {
+                              await _auth.googleSignIn().then((value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                              });
+                            } catch (e) {
+                              Functions.showErrorSnackbar(
+                                  context, e.toString());
+                            }
+
+                            // dismiss loader
+                            EasyLoading.dismiss();
+                          },
                           buttonText: 'Google',
                         ),
                         AnotherAuthWidget(

@@ -2,6 +2,7 @@ import 'package:credr_assignment/src/core/functions.dart';
 import 'package:credr_assignment/src/core/responsive_model.dart';
 import 'package:credr_assignment/src/logic/auth/auth.dart';
 import 'package:credr_assignment/src/logic/auth/auth_excetion.dart';
+import 'package:credr_assignment/src/presentation/pages/home.dart';
 import 'package:credr_assignment/src/presentation/pages/signup_page.dart';
 import 'package:credr_assignment/src/presentation/widgets/another_auth_widget.dart';
 import 'package:credr_assignment/src/presentation/widgets/button_widget.dart';
@@ -164,20 +165,32 @@ class SignIn extends StatelessWidget {
                           ButtonWidget(
                             // Firebase automactically validates email not need to check manually
                             callback: () async {
-                              // show loading
-                              Functions.showLoading('Signing in..');
+                              if (Functions.validateSignIn(
+                                  context: context,
+                                  email: _email.text.trim(),
+                                  password: _password.text.trim())) {
+                                // show loading
+                                Functions.showLoading('Signing in..');
 
-                              try {
-                                await _auth.signIn(
-                                    email: _email.text.trim(),
-                                    password: _password.text.trim());
-                              } on AuthException catch (e) {
-                                Functions.showErrorSnackbar(
-                                    context, e.toString());
+                                try {
+                                  await _auth
+                                      .signIn(
+                                          email: _email.text.trim(),
+                                          password: _password.text.trim())
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()));
+                                  });
+                                } on AuthException catch (e) {
+                                  Functions.showErrorSnackbar(
+                                      context, e.toString());
+                                }
+
+                                // dismiss the loader
+                                EasyLoading.dismiss();
                               }
-
-                              // dismiss the loader
-                              EasyLoading.dismiss();
                             },
                             buttonText: 'Sign In',
                           ),
@@ -271,7 +284,12 @@ class SignIn extends StatelessWidget {
                             Functions.showLoading('');
 
                             try {
-                              await _auth.googleSignIn();
+                              await _auth.googleSignIn().then((value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                              });
                             } catch (e) {
                               Functions.showErrorSnackbar(
                                   context, e.toString());
